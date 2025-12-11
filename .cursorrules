@@ -1,0 +1,208 @@
+# Squad Dashboard - Video Review Application
+
+## Project Overview
+This is a **Next.js 14** application for reviewing body camera videos with AI-powered sentiment analysis. The app allows supervisors to review officer body camera footage, flag moments, add responses, and submit reviews.
+
+## Tech Stack
+- **Framework**: Next.js 14 (App Router)
+- **Styling**: Tailwind CSS
+- **Language**: TypeScript
+- **Deployment**: Vercel
+
+## Deployment URLs
+- **Beta**: https://squad-dashboard-beta.vercel.app
+- **Password**: `7Ak2Xp5O3N`
+
+## Project Structure
+```
+src/
+├── app/
+│   ├── page.tsx              # Dashboard home page
+│   ├── password/
+│   │   └── page.tsx          # Password protection page
+│   ├── api/
+│   │   └── auth/
+│   │       └── route.ts      # Authentication API
+│   ├── review/
+│   │   └── page.tsx          # Video Review page (main feature)
+│   └── layout.tsx
+├── components/
+│   ├── review/
+│   │   ├── VideoReviewHeader.tsx    # Header with navigation
+│   │   ├── VideoPlayer.tsx          # Video player with timeline & markers
+│   │   ├── SupportPane.tsx          # Right sidebar (tabs: Overview, Flagged moments, Transcript, Review)
+│   │   ├── AddResponsePopup.tsx     # Popup to add review response
+│   │   ├── SendEmailPopup.tsx       # Popup to send feedback email
+│   │   ├── SentimentDetailsPopup.tsx # Popup showing sentiment analysis details
+│   │   └── VideoThumbnail.tsx       # Generate video thumbnails from timestamp
+│   └── icons.tsx
+├── data/
+│   └── videoData.ts          # CSV data loader and utilities
+├── middleware.ts             # Password protection middleware
+└── utils/
+    └── time.ts               # Time formatting utilities
+public/
+├── videos/                   # Video files
+├── data/
+│   └── dataScript.csv        # CSV data (transcript, sentiment, keywords, markers)
+└── logo.png                  # Company logo
+```
+
+## Key Features
+
+### 🔐 Authentication
+- Password protection page with show/hide toggle
+- Session-based authentication (cookie expires when browser closes)
+- Custom company logo
+
+### 🎬 Video Player
+- Play/Pause, Skip forward/backward (10s)
+- Playback speed control (0.5x, 1x, 1.5x, 2x)
+- Volume control & mute toggle
+- Fullscreen mode
+- Progress bar with click-to-seek
+
+### 📍 Timeline & Markers
+- Zoom in/out (5 levels: 2.2x - 3.5x)
+- Horizontal scroll when zoomed
+- **Sentiment markers** (person icon) - from `Sentiment_priority = 1`
+- **Keyword markers** (A icon) - from `Keyword_priority = 1`
+- **Auto-generated markers** (lightning icon) - from `Markers` column
+- Marker highlight animation (scale 1.4x + yellow color)
+- Auto-focus timeline when clicking frames outside visible range
+- Marker dimming when one is selected
+
+### 📊 Overview Tab
+- Officer info, Video ID & metadata
+- Tags (Traffic stop, DUI)
+- Recorded date/time with timezone
+- **Location section with map preview** (fade effect)
+- **Sentiment auto summary** (dynamic from CSV, only `Sentiment_priority = 1`)
+- Clickable sentiment bars to highlight markers
+- Auto-generated markers list
+
+### 🚩 Flagged Moments Tab
+- List all flagged moments (Sentiment, Keyword, Marker)
+- Video thumbnail for each item with play/pause toggle
+- **Filter dropdown** with count + Reset button
+- Click chevron (>) to jump to Transcript tab
+- "Response added" badge (green)
+- **3-dot menu** for frames with response (Edit/Remove)
+- Auto-select first frame when entering tab
+
+### 📝 Transcript Tab
+- Full transcript list
+- **Keyword pills** (dynamic from CSV, excludes "None")
+- **Expandable keywords** with max-height 180px + scroll
+- Search functionality with highlight & navigation
+- Role badges (Officer/Subject)
+- **Auto-select transcript** when video plays
+- 3-dot menu for entries with response
+
+### ✍️ Add Response Popup
+- Slide-in animation from right
+- Video thumbnail at timestamp
+- 13 review result checkboxes (white color)
+- Scrollable review results
+- Feedback textarea
+- **Close on ESC key**
+- **Edit mode** - pre-fill data when editing
+
+### ⭐ Review Tab
+- Review Results checkboxes (scrollable)
+- Feedback textarea
+- Added Flagged moments list
+- Submit button
+- **Disabled Add Response after Submit** (tooltip after 0.5s)
+- **Disabled 3-dot menu after Submit** (tooltip bottom-right)
+
+### 📧 Send Email Popup
+- Slide-in animation
+- Recipient field (pre-filled)
+- CC field with dropdown
+- Close on ESC key
+
+## CSV Data Structure (`dataScript.csv`)
+```csv
+ID,Timestamp,Role,Sentiment,Sentiment_priority,Keyword,Keyword_priority,Transcript,Markers
+1,0:02,Subject,None,0,None,0,Hello officer,
+2,0:15,Officer,Heightened,1,Command,1,Step out of the car,TASER CEW markers: Safety Off
+```
+
+### Data Conventions
+- `Sentiment_priority = 1` → Show sentiment marker on timeline & in summary
+- `Keyword_priority = 1` → Show keyword marker on timeline
+- `Markers` column → Show auto-generated markers (when has data)
+- `None` values are excluded from display
+
+## Important Patterns
+
+### Video Seeking
+```tsx
+// Parent (review/page.tsx) holds ref
+const videoPlayerRef = useRef<VideoPlayerRef>(null);
+videoPlayerRef.current?.seekTo(seconds);
+```
+
+### Marker Highlighting
+```tsx
+// Three types of highlighting:
+highlightedMarkerId    // Specific marker by ID (highest priority)
+highlightedSentiment   // All markers with matching sentiment
+highlightedKeyword     // All markers with matching keyword
+```
+
+### Tab Auto-Selection
+- Overview → Auto-select highest sentiment, highlight markers
+- Flagged moments → Auto-select first frame, highlight specific marker
+- Transcript → Auto-select based on video playback time
+
+### Tooltip Component
+```tsx
+<DisabledTooltip 
+  message="Message text" 
+  show={condition} 
+  position="top" | "bottom-right"
+>
+  {children}
+</DisabledTooltip>
+```
+
+## Styling Conventions
+- Dark theme: `bg-[#141217]`, `bg-[#1f1d23]`, `bg-[#1c1a21]`
+- Text colors: `text-[#f2efed]`, `text-[rgba(242,239,237,0.75)]`
+- Accent: `#ffd563` (yellow), `#fec62e` (gold)
+- Borders: `border-[rgba(242,239,237,0.12)]`
+- Scrollbar hidden: `scrollbar-hide` class
+
+## CSS Animations
+- `marker-pop` - Marker highlight animation (scale 1 → 1.4 → 1)
+- `slide-in-right` - Popup slide-in from right
+- `fade-in` - General fade in
+
+## Common Commands
+```bash
+# Development
+npm run dev
+
+# Build
+npm run build
+
+# Deploy to Vercel
+npx vercel --prod --yes
+
+# Update beta alias
+npx vercel alias [deployment-url] squad-dashboard-beta.vercel.app
+```
+
+## Current Officer Being Reviewed
+- **Officer**: Ofc. Scott, Kurt (5294)
+- **Reviewer**: Tanioka, Sidney (stanioka)
+
+## Notes
+- Always test on localhost first before deploying
+- Video duration calculated from max timestamp in CSV
+- Thumbnails generated client-side using canvas
+- Keyword pills limited to 7 visible, expandable with "+N" button
+- CSV fetched with cache-busting (`?_t=${Date.now()}`)
+- ESC key closes all popups

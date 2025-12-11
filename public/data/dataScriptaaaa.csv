@@ -1,0 +1,51 @@
+ID,Timestamp,Role,Sentiment,Sentiment_priority,Keyword,Keyword_priority,Transcript,Markers,,Note
+1,0:02,Subject,None,0,None,0,I,,,"Câu trung tính, không biểu cảm."
+2,0:09,Subject,None,0,None,0,know,,,Không mang ý nghĩa sentiment.
+3,0:11,Subject,Heightened,1,Yelling,1,check what is going on,,,"Bối rối, giọng cao → Heightened tiêu biểu."
+4,0:14,Subject,Heightened,0,Complaint,0,man you came in,,,"Căng thẳng nhẹ, không đủ mức tiêu biểu."
+5,0:19,Subject,Heightened,0,Demand,0,get who are,,,Câu yêu cầu nhưng không rõ escalation → không ưu tiên.
+6,0:28,Subject,Heightened,1,Yelling,1,you get off of her bro get off of her,TASER CEW markers: Safety Off (armed).,,La hét mạnh → ví dụ tiêu biểu Heightened.
+7,0:31,Subject,Heightened,1,Accusation,1,what are you doing he punched me twice,,,Cáo buộc bạo lực → rất quan trọng → priority 1.
+8,0:33,Subject,Escalatory,1,Defiance,1,what are you doing arrest me I work here,TASER CEW markers: Arc (arc button press).,,Thách thức → escalatory rõ ràng.
+9,0:36,Subject,Heightened,0,Defensive,0,what are you doing close I over trying,,,Căng thẳng nhưng không tiêu biểu.
+10,0:39,Subject,Heightened,0,Explanation,0,to show him he wasn't in the FR to tell,,,Giải thích → không phải câu mạnh.
+11,0:42,Subject,Heightened,1,Injury report,1,me you okay he punch me in my head with,,,Báo cáo thương tích → critical → priority 1.
+12,0:46,Officer,Professional,1,Calm request,1,all right let me figure out what's going on,"TASER CEW markers: Trigger (discharge/deploy), with cycle length noted in the title.",,Officer de-escalation điển hình.
+13,0:48,Officer,Professional,0,Calm request,0,going on okay give me a second,,,Chưa đủ mạnh để tiêu biểu.
+14,0:50,Officer,Professional,1,Inquiry,1,hey man let me talk to you real quick,,,Câu hỏi mở → inquiry điển hình.
+15,0:54,Officer,Professional,1,Question,1,what is happening why did you feel the need to do this,,,Câu hỏi điều tra tiêu biểu.
+16,0:56,Officer,Professional,0,Question,0,I work here,Signal Sidearm markers: Firearm draw/unholster.,,"Không phải câu của officer, không rõ."
+17,0:58,Officer,Professional,0,Neutral stance,0,I don't care if here,,,"Trung tính, không tiêu biểu."
+18,1:00,Officer,Professional,0,Question,0,so explain to explain to me why did you,,,"Câu lặp, không tiêu biểu."
+19,1:03,Officer,Professional,0,Question,0,feel the,,,Câu chưa hoàn chỉnh.
+20,1:04,Subject,Heightened,0,Explanation,0,yesterday Wei receiving the mlan truck,Chapter markers: Created by pressing the hardware marker button on Axon Body 2 (AB2),,"Thông tin procedural, không tiêu biểu."
+21,1:07,Subject,Heightened,0,Procedural claim,0,nobody to St his clothes nobody's,,,Không mang yếu tố căng thẳng quan trọng.
+22,1:08,Subject,Heightened,0,Procedural claim,0,allowed in the store until the truck,,,Thông tin giải thích.
+23,1:09,Officer,Professional,0,Acknowledgement,0,leaves okay I I understand that the,,,Không đủ mạnh → không ưu tiên.
+24,1:11,Officer,Professional,0,Directive,0,store was closed but what listen to me I,,,"Dấu hiệu khó chịu nhẹ, chưa đạt escalatory."
+25,1:14,Officer,Escalatory,1,Command,1,don't listen to me answer my questions,,,Mệnh lệnh áp lực → escalatory rõ.
+26,1:16,Officer,Professional,0,Question,0,why did you feel the need the store was,,,Câu hỏi nhưng không mạnh.
+27,1:18,Subject,Heightened,0,Defensive,0,closed and she was in the store nobody's,,,"Chống chế, không đủ mạnh để ưu tiên."
+28,1:20,Subject,Heightened,0,Explanation,0,allowed in the store until that mlan,,,Thông tin procedural.
+29,1:21,Officer,Professional,0,Clarification,0,truck Le so the store is closed no one's,,,Câu xác nhận → không tiêu biểu.
+30,1:24,Officer,Professional,0,Question,0,allowed in so you kept her in the store,,,Câu hỏi điều tra cơ bản.
+31,1:26,Subject,Heightened,0,Denial,0,I didn't keep her in the store you were,,,Phủ nhận nhưng không escalate mạnh.
+32,1:27,Officer,Escalatory,1,Assertion,1,on top of her bro you watch the camera,,,Officer khẳng định chứng cứ → escalatory tiêu biểu.
+33,1:30,Officer,Escalatory,0,Assertion,0,you were on when I got here I saw you on,,,Câu lặp lại → không ưu tiên.
+34,1:32,Officer,Escalatory,0,Dismissive,0,top of her I I don't care that you were,,,Mang sắc thái dismissive nhưng không tiêu biểu.
+35,1:34,Subject,Escalatory,1,Defiance,1,here you want me to clock out then you,,,Chống đối → escalatory rõ.
+36,1:36,Subject,Escalatory,1,Defiance,1,arrest me I don't care what you do,,,Thách thức trực tiếp → tiêu biểu.
+37,1:38,Officer,Professional,0,Redirect,0,explain to me why is it that you f scan,,,Không rõ ràng → không ưu tiên.
+38,1:41,Officer,Professional,0,Request,0,this right here sir if you want,,,Không phải câu mạnh.
+39,1:45,Officer,Professional,0,Instruction,0,to explain I'm trying you're not,,,Không tiêu biểu.
+40,1:48,Officer,Escalatory,0,Frustration,0,answering my questions expl the proced,,,Có dấu hiệu nhưng chưa đủ mạnh.
+41,1:50,Officer,Professional,0,Question,0,911 during the emergency okay so was the,,,Không phải câu mạnh.
+42,1:52,Officer,Professional,0,Question,0,procedure to jump on top of somebody,,,Câu hỏi nhưng không tiêu biểu.
+43,1:54,Officer,Professional,0,Statement,0,watch the camera so explain to me why,,,Không đủ mạnh.
+44,1:57,Officer,Professional,0,Question,0,did you feel the need to keep her inside,,,Điều tra cơ bản.
+45,1:59,Officer,Professional,0,Question,0,the store,,,Câu rời từng phần.
+46,2:01,Officer,None,0,None,0,what are you showing,,,Không mang sentiment đặc trưng.
+47,2:02,Subject,None,0,None,0,me my father,,,Không liên quan hành vi.
+48,2:05,Subject,None,0,ID,0,ID 911 from my office start you're at 10,,,ID không biểu cảm → không tiêu biểu.
+49,2:09,Officer,Escalatory,0,Pressure,0,what 0025 Orange Avenue okay you're not,,,Có dấu hiệu áp lực nhưng không đủ mạnh.
+50,2:12,Officer,Escalatory,0,Command,0,answering my question do your job t Okay,,,Mang sắc thái command nhưng không tiêu biểu.
