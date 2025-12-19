@@ -23,14 +23,15 @@ export const parseTimestamp = (ts: string): number => {
 };
 
 // Parse CSV text to TranscriptEntry array
+// Note: This CSV uses semicolons (;) as delimiters
 export const parseCSV = (csvText: string): TranscriptEntry[] => {
   const lines = csvText.trim().split("\n");
-  const headers = lines[0].split(",");
+  const headers = lines[0].split(";");
   
   const entries: TranscriptEntry[] = [];
   
   for (let i = 1; i < lines.length; i++) {
-    // Handle CSV with quoted fields
+    // Handle CSV with semicolon delimiter and quoted fields
     const row = parseCSVRow(lines[i]);
     if (row.length < 8) continue;
     
@@ -48,8 +49,8 @@ export const parseCSV = (csvText: string): TranscriptEntry[] => {
     const transcript = row[7]?.trim() || "";
     const marker = row[8]?.trim() || undefined;
     
-    // Parse keywords (comma-separated within the field)
-    const keywords = keyword ? keyword.split(",").map(k => k.trim()).filter(k => k) : [];
+    // Parse keywords (space-separated within the field, since commas are not delimiters here)
+    const keywords = keyword ? keyword.split(/\s+/).map(k => k.trim()).filter(k => k && k !== "None" && k !== "none") : [];
     
     entries.push({
       id,
@@ -69,6 +70,7 @@ export const parseCSV = (csvText: string): TranscriptEntry[] => {
 };
 
 // Parse a single CSV row, handling quoted fields
+// Uses semicolon (;) as delimiter to match the CSV format
 const parseCSVRow = (row: string): string[] => {
   const result: string[] = [];
   let current = "";
@@ -79,7 +81,7 @@ const parseCSVRow = (row: string): string[] => {
     
     if (char === '"') {
       inQuotes = !inQuotes;
-    } else if (char === "," && !inQuotes) {
+    } else if (char === ";" && !inQuotes) {
       result.push(current);
       current = "";
     } else {
